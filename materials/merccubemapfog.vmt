@@ -1,0 +1,26 @@
+screenspace_general
+{
+    "$pixshader" "cubemap_fog_ps20"
+
+    "$basetexture" "_rt_fullframefb"
+    "$texture1" "_rt_WPDepth"
+    "$texture2" "_rt_sky2d"
+
+    "$linearread_texture1" "1"
+
+    "$ignorez" "1"
+    "$c0_x" "0"
+    "$c0_y" "1024"
+    "$c0_z" "1.0"
+
+    "$c1_x" "1"
+    "$c1_y" "1"
+    "$c1_z" "1"
+
+    "c2_x" "0"
+    "c2_y" "0"
+    "c2_z" "0"
+
+    "$vertextransform" "1"
+    "$alphablend" "1"
+}

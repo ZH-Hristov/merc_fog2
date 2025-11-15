@@ -1,0 +1,12 @@
+screenspace_general
+{
+    "$pixshader" "fog_volume_sphere_ps20"
+
+    "$basetexture" "_rt_fullframefb"
+    "$texture1" "_rt_WPDepth"
+    "$alphablend" "1"
+
+    "$linearread_texture1" "1"
+    
+    "$vertextransform" "1"
+}
