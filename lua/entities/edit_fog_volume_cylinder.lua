@@ -1,6 +1,6 @@
 
 AddCSLuaFile()
-DEFINE_BASECLASS( "base_edit" )
+DEFINE_BASECLASS( "merc_base_fog_edit" )
 
 ENT.Spawnable = true
 ENT.AdminOnly = true
@@ -20,7 +20,9 @@ function ENT:Initialize()
 
 	self:SetMaterial( "gmod/edit_fog" )
 	self:SetBodygroup(1, 1)
-
+	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+	self:EnableCustomCollisions()
+	
 	if ( CLIENT ) then
 
 		hook.Add( "RenderScreenspaceEffects", self, self.SetupFogVolume )
@@ -86,7 +88,7 @@ function ENT:SetupDataTables()
 	self:NetworkVar( "Float", 5, "Length", { KeyName = "length", Edit = { type = "Float", min = 0, max = 100000, order = 5 } } )
     self:NetworkVar( "Float", 6, "EdgeFade", { KeyName = "edgefade", Edit = { type = "Float", min = 0, max = 10000, order = 7 } } )
 
-	self:NetworkVar( "Vector", 0, "FogColor", { KeyName = "fogcolor", Edit = { type = "VectorColor", order = 3 } } )
+	self:NetworkVar( "Vector", 0, "FogColor", { KeyName = "fogcolor", Edit = { type = "VectorColor", order = 8 } } )
 
 	if ( SERVER ) then
 
@@ -102,11 +104,5 @@ function ENT:SetupDataTables()
         self:SetEdgeFade(20)
 
 	end
-
-end
-
-function ENT:UpdateTransmitState()
-
-	return TRANSMIT_ALWAYS
 
 end

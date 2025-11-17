@@ -1,6 +1,6 @@
 
 AddCSLuaFile()
-DEFINE_BASECLASS( "base_edit" )
+DEFINE_BASECLASS( "merc_base_fog_edit" )
 
 ENT.Spawnable = true
 ENT.AdminOnly = true
@@ -17,6 +17,8 @@ function ENT:Initialize()
 	BaseClass.Initialize( self )
 
 	self:SetMaterial( "gmod/edit_fog" )
+	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+	self:EnableCustomCollisions()
 
 	if ( CLIENT ) then
 
@@ -70,11 +72,5 @@ function ENT:SetupDataTables()
 		self:SetSkyBlend( 1.0 )
 
 	end
-
-end
-
-function ENT:UpdateTransmitState()
-
-	return TRANSMIT_ALWAYS
 
 end

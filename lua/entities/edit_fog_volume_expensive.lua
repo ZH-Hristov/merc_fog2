@@ -1,6 +1,6 @@
 
 AddCSLuaFile()
-DEFINE_BASECLASS( "base_edit" )
+DEFINE_BASECLASS( "merc_base_fog_edit" )
 
 ENT.Spawnable = true
 ENT.AdminOnly = true
@@ -17,6 +17,8 @@ function ENT:Initialize()
 	BaseClass.Initialize( self )
 
 	self:SetMaterial( "gmod/edit_fog" )
+	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+	self:EnableCustomCollisions()
 
 	if ( CLIENT ) then
 
@@ -50,9 +52,9 @@ function ENT:SetupFogVolume()
 	mat_SetFloat( mat, "$c1_y", fogcolor.y )
 	mat_SetFloat( mat, "$c1_z", fogcolor.z )
 
-    mat_SetFloat( mat, "$c2_x", wx )
-    mat_SetFloat( mat, "$c2_y", wy )
-    mat_SetFloat( mat, "$c2_z", h )
+    mat_SetFloat( mat, "$c2_x", wx * 0.5 )
+    mat_SetFloat( mat, "$c2_y", wy * 0.5 )
+    mat_SetFloat( mat, "$c2_z", h * 0.5 )
 
     mat_SetFloat( mat, "$c3_x", sp.x )
     mat_SetFloat( mat, "$c3_y", sp.y )
@@ -71,9 +73,9 @@ function ENT:SetupDataTables()
 	self:NetworkVar( "Float", 0, "FogStart", { KeyName = "fogstart", Edit = { type = "Float", min = 0, max = 100000, order = 1 } } )
 	self:NetworkVar( "Float", 1, "FogEnd", { KeyName = "fogend", Edit = { type = "Float", min = 0, max = 100000, order = 2 } } )
 	self:NetworkVar( "Float", 2, "Density", { KeyName = "density", Edit = { type = "Float", min = 0, max = 3, order = 3 } } )
-    self:NetworkVar( "Float", 3, "WidthX", { KeyName = "widthx", Edit = { type = "Float", min = -10000, max = 10000, order = 4 } } )
-    self:NetworkVar( "Float", 4, "WidthY", { KeyName = "widthy", Edit = { type = "Float", min = -10000, max = 10000, order = 5 } } )
-    self:NetworkVar( "Float", 5, "Height", { KeyName = "height", Edit = { type = "Float", min = -10000, max = 10000, order = 6 } } )
+    self:NetworkVar( "Float", 3, "WidthX", { KeyName = "widthx", Edit = { type = "Float", min = 0, max = 10000, order = 4 } } )
+    self:NetworkVar( "Float", 4, "WidthY", { KeyName = "widthy", Edit = { type = "Float", min = 0, max = 10000, order = 5 } } )
+    self:NetworkVar( "Float", 5, "Height", { KeyName = "height", Edit = { type = "Float", min = 0, max = 10000, order = 6 } } )
     self:NetworkVar( "Float", 6, "EdgeFade", { KeyName = "edgefade", Edit = { type = "Float", min = 0, max = 10000, order = 7 } } )
 
 
@@ -94,11 +96,5 @@ function ENT:SetupDataTables()
         self:SetEdgeFade(30)
 
 	end
-
-end
-
-function ENT:UpdateTransmitState()
-
-	return TRANSMIT_ALWAYS
 
 end

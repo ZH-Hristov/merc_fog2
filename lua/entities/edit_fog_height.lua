@@ -1,6 +1,6 @@
 
 AddCSLuaFile()
-DEFINE_BASECLASS( "base_edit" )
+DEFINE_BASECLASS( "merc_base_fog_edit" )
 
 ENT.Spawnable = true
 ENT.AdminOnly = true
@@ -9,6 +9,7 @@ ENT.PrintName = "Height Fog Editor"
 ENT.Category = "Fog 2"
 ENT.Information = "Right click on this entity via the context menu (hold C by default) and select 'Edit Properties' to edit the fog."
 ENT.Material = Material("mercheightfog")
+ENT.HelpTextDistance = 50000000 -- Higher helper distance since height fog is global
 
 local mat_SetFloat = FindMetaTable( "IMaterial" ).SetFloat
 
@@ -17,18 +18,14 @@ function ENT:Initialize()
 	BaseClass.Initialize( self )
 
 	self:SetMaterial( "gmod/edit_fog" )
+	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+	self:EnableCustomCollisions()
 
 	if ( CLIENT ) then
 
 		hook.Add( "RenderScreenspaceEffects", self, self.SetupHeightFog )
 
 	end
-
-end
-
-function ENT:NeedsDepthPass()
-
-	return true
 
 end
 
@@ -71,11 +68,5 @@ function ENT:SetupDataTables()
 		self:SetFogColor( Vector( 0.6, 0.7, 0.8 ) )
 
 	end
-
-end
-
-function ENT:UpdateTransmitState()
-
-	return TRANSMIT_ALWAYS
 
 end
