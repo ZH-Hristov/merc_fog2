@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Fog 2 Docs</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Fog 2 Documentation";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> Fog 2 Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Fog 2 Documentation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#editing-the-fog-editors">Editing the fog editors</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#lua-functions">Lua Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">Fog 2 Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Fog 2 Documentation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="fog-2-documentation">Fog 2 Documentation</h1>
+<p>Documentation for the fog 2 addon for GMod.</p>
+<h2 id="editing-the-fog-editors">Editing the fog editors</h2>
+<p>All the editor entities have been designed not to collide with anything, but still be able to be grabbed by the Physgun, edited with the Toolgun and selected through the C menu.</p>
+<p>Doing this for the C menu required a workaround, so instead of right-clicking the entity, you must press E while aiming at it with your cursor.
+Additionally, some helper text will pop-up when you open the C menu to help you find the entity if it is obscured by the fog, as such:</p>
+<p><img alt="Screenshot" src="img/helper.jpg" /></p>
+<p>The small red square is where you should aim, as it is placed at the center of the editor.</p>
+<h2 id="lua-functions">Lua Functions</h2>
+<ul>
+<li><code>render.DrawFogVolumeCheap(pos, aabb, density, fogstart, fogend, color, edgefade)</code> - Draw a cheap volume that only obscures what it intersects. (No real volumetrics)</li>
+<li><code>render.DrawFogVolume(pos, aabb, density, fogstart, fogend, color, edgefade)</code> - Draw a real volumetric fog volume.</li>
+<li><code>render.DrawFogVolume2DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly)</code> - Draw a fog volume that is modulated by a scrolling 2D noise texture.</li>
+<li><code>render.DrawFogVolume3DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly, scrollz)</code> - - Draw a fog volume that is modulated by a scrolling 3D noise texture.</li>
+</ul>
+<h2 id="example">Example</h2>
+<p>All the fog shaders are drawn with alphablended screen quads.</p>
+<p>In normal circumstances you would draw these in the <code>RenderScreenspaceEffects</code> hook.</p>
+<p>This will draw a 500x500x250 fog volume at the center of the map and remove it after 5 seconds.
+<code>vector_origin</code> and <code>color_white</code> are static globals provided by Garry's Mod.</p>
+<pre><code class="language-lua">local size = Vector( 500, 500, 250 )
+
+hook.Add(&quot;RenderScreenspaceEffects&quot;, &quot;Fog_Test&quot;, function()
+    render.DrawFogVolume(vector_origin, size, 1, 0, 100, color_white, 30)
+end)
+
+timer.Simple(5, function()
+    hook.Remove(&quot;RenderScreenspaceEffects&quot;, &quot;Fog_Test&quot;)
+end)
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2025-11-18 14:34:06.896333+00:00
+-->
