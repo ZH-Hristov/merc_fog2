@@ -30,6 +30,49 @@ function ENT:Initialize()
 
 end
 
+if CLIENT then
+	local mat = Material("mercfogvolume3dnoise")
+	local emtx = {0,0,0,0}
+
+	function render.DrawFogVolume3DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly, scrollz)
+		local ep = LocalPlayer():EyePos()
+		mat_SetFloat( mat, "$c0_x", ep.x )
+		mat_SetFloat( mat, "$c0_y", ep.y )
+		mat_SetFloat( mat, "$c0_z", ep.z )
+
+		mat_SetFloat( mat, "$c0_w", edgefade )
+
+		mat_SetFloat( mat, "$c3_x", pos.x )
+		mat_SetFloat( mat, "$c3_y", pos.y )
+    	mat_SetFloat( mat, "$c3_z", pos.z )
+
+		mat_SetFloat( mat, "$c1_w", density )
+
+		mat_SetFloat( mat, "$c1_x", color.r )
+		mat_SetFloat( mat, "$c1_y", color.g )
+		mat_SetFloat( mat, "$c1_z", color.b )
+
+		mat_SetFloat( mat, "$c2_x", aabb.x * 0.5 )
+		mat_SetFloat( mat, "$c2_y", aabb.y * 0.5 )
+		mat_SetFloat( mat, "$c2_z", aabb.z * 0.5 )
+
+		mat_SetFloat( mat, "$c2_w", fogstart )
+		mat_SetFloat( mat, "$c3_w", fogend )
+
+		mat_SetMatrix( mat, "$viewprojmat", Matrix( {
+			{CurTime(), noisesize, noisemininfluence, noisemaxinfluence},
+			{scrollx, scrolly, scrollz, 0},
+			emtx,
+			emtx
+		} ) )
+
+		render.SetMaterial( mat )
+		render.OverrideBlend( true, BLEND_ONE, BLEND_ONE_MINUS_SRC_ALPHA, BLENDFUNC_ADD, BLEND_ONE, BLEND_ONE_MINUS_SRC_ALPHA, BLENDFUNC_ADD )
+		render.DrawScreenQuad()
+		render.OverrideBlend( false )
+	end
+end
+
 function ENT:SetupFogVolume()
 
     local sp = self:GetPos()

@@ -30,6 +30,47 @@ function ENT:Initialize()
 
 end
 
+if CLIENT then
+	local mat = Material("mercfogvolume2dnoise")
+	local emtx = {0,0,0,0}
+
+	function render.DrawFogVolume2DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly)
+		local ep = LocalPlayer():EyePos()
+		mat_SetFloat( mat, "$c0_x", ep.x )
+		mat_SetFloat( mat, "$c0_y", ep.y )
+		mat_SetFloat( mat, "$c0_z", ep.z )
+
+		mat_SetFloat( mat, "$c0_w", edgefade )
+
+		mat_SetFloat( mat, "$c3_x", pos.x )
+		mat_SetFloat( mat, "$c3_y", pos.y )
+    	mat_SetFloat( mat, "$c3_z", pos.z )
+
+		mat_SetFloat( mat, "$c1_w", density )
+
+		mat_SetFloat( mat, "$c1_x", color.r )
+		mat_SetFloat( mat, "$c1_y", color.g )
+		mat_SetFloat( mat, "$c1_z", color.b )
+
+		mat_SetFloat( mat, "$c2_x", aabb.x * 0.5 )
+		mat_SetFloat( mat, "$c2_y", aabb.y * 0.5 )
+		mat_SetFloat( mat, "$c2_z", aabb.z * 0.5 )
+
+		mat_SetFloat( mat, "$c2_w", fogstart )
+		mat_SetFloat( mat, "$c3_w", fogend )
+
+		mat_SetMatrix( mat, "$viewprojmat", Matrix( {
+			{CurTime(), noisesize, noisemininfluence, noisemaxinfluence},
+			{scrollx, scrolly, 0, 0},
+			emtx,
+			emtx
+		} ) )
+
+		render.SetMaterial( mat )
+		render.DrawScreenQuad()
+	end
+end
+
 function ENT:SetupFogVolume()
 
     local sp = self:GetPos()
@@ -86,7 +127,7 @@ function ENT:SetupDataTables()
     self:NetworkVar( "Float", 4, "WidthY", { KeyName = "widthy", Edit = { type = "Float", min = 0, max = 10000, order = 5 } } )
     self:NetworkVar( "Float", 5, "Height", { KeyName = "height", Edit = { type = "Float", min = 0, max = 10000, order = 6 } } )
     self:NetworkVar( "Float", 6, "EdgeFade", { KeyName = "edgefade", Edit = { type = "Float", min = 0, max = 10000, order = 7 } } )
-	self:NetworkVar( "Float", 7, "NoiseSize", { KeyName = "noisesize", Edit = { type = "Float", min = 0.01, max = 1000, order = 8 } } )
+	self:NetworkVar( "Float", 7, "NoiseSize", { KeyName = "noisesize", Edit = { type = "Float", min = 0.01, max = 100000, order = 8 } } )
 	self:NetworkVar( "Float", 8, "NoiseMinInfluence", { KeyName = "noisemininfluence", Edit = { type = "Float", min = 0, max = 1, order = 9 } } )
 	self:NetworkVar( "Float", 9, "NoiseMaxInfluence", { KeyName = "noisemaxinfluence", Edit = { type = "Float", min = 0, max = 1, order = 10 } } )
 	self:NetworkVar( "Float", 10, "ScrollX", { KeyName = "scrollx", Edit = { type = "Float", min = -100, max = 100, order = 11 } } )
@@ -106,7 +147,7 @@ function ENT:SetupDataTables()
         self:SetWidthY(500)
         self:SetHeight(250)
         self:SetEdgeFade(30)
-		self:SetNoiseSize(0.1)
+		self:SetNoiseSize(5)
 		self:SetNoiseMinInfluence(0)
 		self:SetNoiseMaxInfluence(1)
 		self:SetScrollX(0.02)

@@ -92,7 +92,8 @@ float4 main(PS_INPUT i) : COLOR
     float minEdgeDist = min(edgeDist.x, min(edgeDist.y, edgeDist.z));
 
     // Noise control parameters
-    float2 NoiseScale = float2(NoiseSize, NoiseSize); // smaller = larger features, default = 0.1
+    float safeNoiseSize = max(NoiseSize, 1e-6);
+    float2 NoiseScale = float2(1.0 / safeNoiseSize, 1.0 / safeNoiseSize);
     float2 NoiseScroll = float2(Time * ScrollX, Time * ScrollY); // animate noise
 
     float2 noiseUV = localPos.xy * (NoiseScale / BoxExtent.xy) + NoiseScroll;

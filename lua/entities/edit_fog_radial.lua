@@ -57,7 +57,7 @@ function ENT:SetupDataTables()
 
 	self:NetworkVar( "Float", 0, "FogStart", { KeyName = "fogstart", Edit = { type = "Float", min = 0, max = 1000000, order = 1 } } )
 	self:NetworkVar( "Float", 1, "FogEnd", { KeyName = "fogend", Edit = { type = "Float", min = 0, max = 1000000, order = 2 } } )
-	self:NetworkVar( "Float", 2, "Density", { KeyName = "density", Edit = { type = "Float", min = 0, max = 3, order = 3 } } )
+	self:NetworkVar( "Float", 2, "Density", { KeyName = "density", Edit = { type = "Float", min = 0, max = 10, order = 3 } } )
 	self:NetworkVar( "Float", 3, "SkyBlend", { KeyName = "skyblend", Edit = { type = "Float", min = 0, max = 1, order = 4 } } )
 
 	self:NetworkVar( "Vector", 0, "FogColor", { KeyName = "fogcolor", Edit = { type = "VectorColor", order = 3 } } )
