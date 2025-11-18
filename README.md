@@ -7,3 +7,6 @@ I'll accept any contributions that would make the addon better, especially visua
 # Wiki
 Deployed wiki is available at:
 https://zh-hristov.github.io/merc_fog2/
+
+# Steam Workslop Page
+https://steamcommunity.com/sharedfiles/filedetails/?id=3607972310
