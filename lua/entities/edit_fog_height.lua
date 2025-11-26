@@ -29,6 +29,23 @@ function ENT:Initialize()
 
 end
 
+if CLIENT then
+	local mat = Material("mercheightfog")
+
+	function render.DrawHeightFog(density, fogstartZ, fogendZ, fogcolor, depthfade)
+		mat_SetFloat( mat, "$c0_z", density )
+		mat_SetFloat( mat, "$c0_x", fogendZ )
+		mat_SetFloat( mat, "$c0_y", fogstartZ )
+		mat_SetFloat( mat, "$c0_w", depthfade )
+		mat_SetFloat( mat, "$c1_x", fogcolor.x )
+		mat_SetFloat( mat, "$c1_y", fogcolor.y )
+		mat_SetFloat( mat, "$c1_z", fogcolor.z )
+
+		render.SetMaterial( mat )
+		render.DrawScreenQuad()
+	end
+end
+
 function ENT:SetupHeightFog( start, endd )
 
 	local density = self:GetDensity()

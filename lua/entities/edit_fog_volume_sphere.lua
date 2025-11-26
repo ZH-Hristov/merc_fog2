@@ -28,6 +28,37 @@ function ENT:Initialize()
 
 end
 
+if CLIENT then
+	local mat = Material("mercfogvolumesphere")
+
+	function render.DrawFogVolumeSphere(pos, radius, density, fogstart, fogend, fogcolor, edgefade)
+		local ep = LocalPlayer():EyePos()
+		mat_SetFloat( mat, "$c0_x", ep.x )
+		mat_SetFloat( mat, "$c0_y", ep.y )
+		mat_SetFloat( mat, "$c0_z", ep.z )
+
+		mat_SetFloat( mat, "$c0_w", edgefade )
+
+		mat_SetFloat( mat, "$c3_x", pos.x )
+		mat_SetFloat( mat, "$c3_y", pos.y )
+		mat_SetFloat( mat, "$c3_z", pos.z )
+
+		mat_SetFloat( mat, "$c1_w", density )
+
+		mat_SetFloat( mat, "$c1_x", fogcolor.r )
+		mat_SetFloat( mat, "$c1_y", fogcolor.g )
+		mat_SetFloat( mat, "$c1_z", fogcolor.b )
+
+		mat_SetFloat( mat, "$c2_x", radius )
+
+		mat_SetFloat( mat, "$c2_w", fogstart )
+		mat_SetFloat( mat, "$c3_w", fogend )
+
+		render.SetMaterial( mat )
+		render.DrawScreenQuad()
+	end
+end
+
 function ENT:SetupFogVolume()
 
     local sp = self:GetPos()

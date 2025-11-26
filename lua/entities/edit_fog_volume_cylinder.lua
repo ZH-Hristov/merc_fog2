@@ -31,6 +31,47 @@ function ENT:Initialize()
 
 end
 
+if CLIENT then
+	local mat = Material("mercfogvolumecylinder")
+	local emtx = {0,0,0,0}
+
+	function render.DrawFogVolumeCylinder(pos, startRadius, endRadius, length, forward, density, fogstart, fogend, fogcolor, edgefade)
+		local ep = LocalPlayer():EyePos()
+		mat_SetFloat( mat, "$c0_x", ep.x )
+		mat_SetFloat( mat, "$c0_y", ep.y )
+		mat_SetFloat( mat, "$c0_z", ep.z )
+
+		mat_SetFloat( mat, "$c0_w", edgefade )
+
+		mat_SetFloat( mat, "$c3_x", pos.x )
+		mat_SetFloat( mat, "$c3_y", pos.y )
+		mat_SetFloat( mat, "$c3_z", pos.z )
+
+		mat_SetFloat( mat, "$c1_w", density )
+
+		mat_SetFloat( mat, "$c1_x", fogcolor.r )
+		mat_SetFloat( mat, "$c1_y", fogcolor.g )
+		mat_SetFloat( mat, "$c1_z", fogcolor.b )
+
+		mat_SetFloat( mat, "$c2_x", forward.x )
+		mat_SetFloat( mat, "$c2_y", forward.y )
+		mat_SetFloat( mat, "$c2_z", forward.z )
+
+		mat_SetFloat( mat, "$c2_w", fogstart )
+		mat_SetFloat( mat, "$c3_w", fogend )
+
+		mat_SetMatrix( mat, "$viewprojmat", Matrix( {
+			{startRadius, endRadius, length, 0},
+			emtx,
+			emtx,
+			emtx
+	 	}) )
+
+		render.SetMaterial( mat )
+		render.DrawScreenQuad()
+	end
+end
+
 function ENT:SetupFogVolume()
 
     local sp = self:GetPos()

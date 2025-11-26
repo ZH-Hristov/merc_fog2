@@ -26,6 +26,12 @@ The small red square is where you should aim, as it is placed at the center of t
 
 * <span class=Func>render.DrawRadialFogFromPoint(pointVec: Vector, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, skyblend: Float)</span> - **Draw radial fog from a point in the world.**
 
+* <span class=Func>render.DrawHeightFog(density: Float, fogstartZ: Float, fogendZ: Float, fogcolor: VectorColor, depthfade: Float)</span> - **Draw height fog starting and ending at specified heights.**
+
+* <span class=Func>render.DrawFogVolumeSphere(pos: Vector, radius: Float, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, edgefade: Float)</span> - **Draw a spherical fog volume.**
+
+* <span class=Func>render.DrawFogVolumeCylinder(pos: Vector, startRadius: Float, endRadius: Float, length: Float, forward: NormalVector, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, edgefade: Float)</span> - **Draw a cylindrical fog volume.**
+
 ## Example
 
 All the fog shaders are drawn with alphablended screen quads.
