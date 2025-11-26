@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="sitestyle.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -84,10 +85,24 @@ Additionally, some helper text will pop-up when you open the C menu to help you 
 <p>The small red square is where you should aim, as it is placed at the center of the editor.</p>
 <h2 id="lua-functions">Lua Functions</h2>
 <ul>
-<li><code>render.DrawFogVolumeCheap(pos, aabb, density, fogstart, fogend, color, edgefade)</code> - Draw a cheap volume that only obscures what it intersects. (No real volumetrics)</li>
-<li><code>render.DrawFogVolume(pos, aabb, density, fogstart, fogend, color, edgefade)</code> - Draw a real volumetric fog volume.</li>
-<li><code>render.DrawFogVolume2DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly)</code> - Draw a fog volume that is modulated by a scrolling 2D noise texture.</li>
-<li><code>render.DrawFogVolume3DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly, scrollz)</code> - - Draw a fog volume that is modulated by a scrolling 3D noise texture.</li>
+<li>
+<p><span class=Func>render.DrawFogVolumeCheap(pos: Vector, aabb: Vector, density: Float, fogstart: Float, fogend: Float, color: VectorColor, edgefade: Float)</span> - <strong>Draw a cheap volume that only obscures what it intersects. (No real volumetrics)</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawFogVolume(pos: Vector, aabb: Vector, density: Float, fogstart: Float, fogend: Float, color: VectorColor, edgefade)</span> - <strong>Draw a real volumetric fog volume.</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawFogVolume2DNoise(pos: Vector, aabb: Vector, density: Float, fogstart: Float, fogend: Float, color: VectorColor, edgefade: Float, noisesize: Float, noisemininfluence: Float, noisemaxinfluence: Float, scrollx: Float, scrolly: Float)</span> - <strong>Draw a fog volume that is modulated by a scrolling 2D noise texture.</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawFogVolume3DNoise(pos: Vector, aabb: Vector, density: Float, fogstar: Floatt, fogend: Float, color: VectorColor, edgefade: Float, noisesize: Float, noisemininfluence: Float, noisemaxinfluence: Float, scrollx: Float, scrolly: Float, scrollz: Float)</span> - <strong>Draw a fog volume that is modulated by a scrolling 3D noise texture.</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawRadialFog(density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, skyblend: Float)</span> - <strong>Draw radial fog around the camera.</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawRadialFogFromPoint(pointVec: Vector, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, skyblend: Float)</span> - <strong>Draw radial fog from a point in the world.</strong></p>
+</li>
 </ul>
 <h2 id="example">Example</h2>
 <p>All the fog shaders are drawn with alphablended screen quads.</p>
@@ -135,6 +150,7 @@ end)
     <script>var base_url = ".";</script>
     <script src="js/theme_extra.js"></script>
     <script src="js/theme.js"></script>
+      <script src="autoclass.js"></script>
       <script src="search/main.js"></script>
     <script>
         jQuery(function () {
@@ -147,5 +163,5 @@ end)
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-11-18 14:34:06.896333+00:00
+Build Date UTC : 2025-11-26 14:02:24.016023+00:00
 -->
