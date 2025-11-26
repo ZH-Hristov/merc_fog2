@@ -103,6 +103,15 @@ Additionally, some helper text will pop-up when you open the C menu to help you 
 <li>
 <p><span class=Func>render.DrawRadialFogFromPoint(pointVec: Vector, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, skyblend: Float)</span> - <strong>Draw radial fog from a point in the world.</strong></p>
 </li>
+<li>
+<p><span class=Func>render.DrawHeightFog(density: Float, fogstartZ: Float, fogendZ: Float, fogcolor: VectorColor, depthfade: Float)</span> - <strong>Draw height fog starting and ending at specified heights.</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawFogVolumeSphere(pos: Vector, radius: Float, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, edgefade: Float)</span> - <strong>Draw a spherical fog volume.</strong></p>
+</li>
+<li>
+<p><span class=Func>render.DrawFogVolumeCylinder(pos: Vector, startRadius: Float, endRadius: Float, length: Float, forward: NormalVector, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, edgefade: Float)</span> - <strong>Draw a cylindrical fog volume.</strong></p>
+</li>
 </ul>
 <h2 id="example">Example</h2>
 <p>All the fog shaders are drawn with alphablended screen quads.</p>
@@ -163,5 +172,5 @@ end)
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-11-26 14:02:24.016023+00:00
+Build Date UTC : 2025-11-26 14:58:28.042312+00:00
 -->
