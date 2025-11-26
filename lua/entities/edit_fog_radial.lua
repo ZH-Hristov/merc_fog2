@@ -43,7 +43,7 @@ if CLIENT then
 		mat_SetFloat( mat, "$c2_x", lp.x )
 		mat_SetFloat( mat, "$c2_y", lp.y )
 		mat_SetFloat( mat, "$c2_z", lp.z )
-		mat_SetFloat( mat, "$c0_w", self:GetSkyBlend() )
+		mat_SetFloat( mat, "$c0_w", skyblend )
 
 		render.SetMaterial( mat )
 		render.DrawScreenQuad()
@@ -59,7 +59,7 @@ if CLIENT then
 		mat_SetFloat( mat, "$c2_x", pointVec.x )
 		mat_SetFloat( mat, "$c2_y", pointVec.y )
 		mat_SetFloat( mat, "$c2_z", pointVec.z )
-		mat_SetFloat( mat, "$c0_w", self:GetSkyBlend() )
+		mat_SetFloat( mat, "$c0_w", skyblend )
 
 		render.SetMaterial( mat )
 		render.DrawScreenQuad()
