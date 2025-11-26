@@ -28,6 +28,44 @@ function ENT:Initialize()
 
 end
 
+if CLIENT then
+	local mat = Material("mercradialfog")
+
+	function render.DrawRadialFog(density, fogstart, fogend, fogcolor, skyblend)
+		local lp = LocalPlayer():EyePos()
+
+		mat_SetFloat( mat, "$c0_z", density )
+		mat_SetFloat( mat, "$c0_x", fogstart )
+		mat_SetFloat( mat, "$c0_y", fogend )
+		mat_SetFloat( mat, "$c1_x", fogcolor.x )
+		mat_SetFloat( mat, "$c1_y", fogcolor.y )
+		mat_SetFloat( mat, "$c1_z", fogcolor.z )
+		mat_SetFloat( mat, "$c2_x", lp.x )
+		mat_SetFloat( mat, "$c2_y", lp.y )
+		mat_SetFloat( mat, "$c2_z", lp.z )
+		mat_SetFloat( mat, "$c0_w", self:GetSkyBlend() )
+
+		render.SetMaterial( mat )
+		render.DrawScreenQuad()
+	end
+
+	function render.DrawRadialFogFromPoint(pointVec, density, fogstart, fogend, fogcolor, skyblend)
+		mat_SetFloat( mat, "$c0_z", density )
+		mat_SetFloat( mat, "$c0_x", fogstart )
+		mat_SetFloat( mat, "$c0_y", fogend )
+		mat_SetFloat( mat, "$c1_x", fogcolor.x )
+		mat_SetFloat( mat, "$c1_y", fogcolor.y )
+		mat_SetFloat( mat, "$c1_z", fogcolor.z )
+		mat_SetFloat( mat, "$c2_x", pointVec.x )
+		mat_SetFloat( mat, "$c2_y", pointVec.y )
+		mat_SetFloat( mat, "$c2_z", pointVec.z )
+		mat_SetFloat( mat, "$c0_w", self:GetSkyBlend() )
+
+		render.SetMaterial( mat )
+		render.DrawScreenQuad()
+	end
+end
+
 function ENT:SetupRadialFog()
 
 	local density = self:GetDensity()
@@ -35,6 +73,7 @@ function ENT:SetupRadialFog()
 	local fogend = self:GetFogEnd()
 	local fogcolor = self:GetFogColor()
 	local mat = self.Material
+	local lp = LocalPlayer():EyePos()
 
 	-- set shader parameters
 	mat_SetFloat( mat, "$c0_z", density )
@@ -43,9 +82,9 @@ function ENT:SetupRadialFog()
 	mat_SetFloat( mat, "$c1_x", fogcolor.x )
 	mat_SetFloat( mat, "$c1_y", fogcolor.y )
 	mat_SetFloat( mat, "$c1_z", fogcolor.z )
-	mat_SetFloat( mat, "$c2_x", LocalPlayer():EyePos().x )
-	mat_SetFloat( mat, "$c2_y", LocalPlayer():EyePos().y )
-	mat_SetFloat( mat, "$c2_z", LocalPlayer():EyePos().z )
+	mat_SetFloat( mat, "$c2_x", lp.x )
+	mat_SetFloat( mat, "$c2_y", lp.y )
+	mat_SetFloat( mat, "$c2_z", lp.z )
 	mat_SetFloat( mat, "$c0_w", self:GetSkyBlend() ) -- skybox blend factor
 
 	render.SetMaterial( mat )

@@ -1,0 +1,24 @@
+h1 {
+  color: red;
+}
+
+.rst-content code {
+  color: lightblue;
+  font-weight: 800;
+  background: gray;
+}
+
+.Func {
+  color: #2980b9;
+  font-weight: 800;
+}
+
+.FuncArg {
+  color: orange;
+  font-weight: 800;
+}
+
+.FuncArgName {
+  color: green;
+  font-weight: 800;
+}

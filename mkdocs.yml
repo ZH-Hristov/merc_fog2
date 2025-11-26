@@ -1,2 +1,6 @@
 site_name: Fog 2 Docs
 theme: readthedocs
+extra_css:
+  - 'sitestyle.css'
+extra_javascript:
+  - 'autoclass.js'

@@ -14,10 +14,17 @@ The small red square is where you should aim, as it is placed at the center of t
 
 ## Lua Functions
 
-* `render.DrawFogVolumeCheap(pos, aabb, density, fogstart, fogend, color, edgefade)` - Draw a cheap volume that only obscures what it intersects. (No real volumetrics)
-* `render.DrawFogVolume(pos, aabb, density, fogstart, fogend, color, edgefade)` - Draw a real volumetric fog volume.
-* `render.DrawFogVolume2DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly)` - Draw a fog volume that is modulated by a scrolling 2D noise texture.
-* `render.DrawFogVolume3DNoise(pos, aabb, density, fogstart, fogend, color, edgefade, noisesize, noisemininfluence, noisemaxinfluence, scrollx, scrolly, scrollz)` - - Draw a fog volume that is modulated by a scrolling 3D noise texture.
+* <span class=Func>render.DrawFogVolumeCheap(pos: Vector, aabb: Vector, density: Float, fogstart: Float, fogend: Float, color: VectorColor, edgefade: Float)</span> - **Draw a cheap volume that only obscures what it intersects. (No real volumetrics)**
+
+* <span class=Func>render.DrawFogVolume(pos: Vector, aabb: Vector, density: Float, fogstart: Float, fogend: Float, color: VectorColor, edgefade)</span> - **Draw a real volumetric fog volume.**
+
+* <span class=Func>render.DrawFogVolume2DNoise(pos: Vector, aabb: Vector, density: Float, fogstart: Float, fogend: Float, color: VectorColor, edgefade: Float, noisesize: Float, noisemininfluence: Float, noisemaxinfluence: Float, scrollx: Float, scrolly: Float)</span> - **Draw a fog volume that is modulated by a scrolling 2D noise texture.**
+
+* <span class=Func>render.DrawFogVolume3DNoise(pos: Vector, aabb: Vector, density: Float, fogstar: Floatt, fogend: Float, color: VectorColor, edgefade: Float, noisesize: Float, noisemininfluence: Float, noisemaxinfluence: Float, scrollx: Float, scrolly: Float, scrollz: Float)</span> - **Draw a fog volume that is modulated by a scrolling 3D noise texture.**
+
+* <span class=Func>render.DrawRadialFog(density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, skyblend: Float)</span> - **Draw radial fog around the camera.**
+
+* <span class=Func>render.DrawRadialFogFromPoint(pointVec: Vector, density: Float, fogstart: Float, fogend: Float, fogcolor: VectorColor, skyblend: Float)</span> - **Draw radial fog from a point in the world.**
 
 ## Example
 
