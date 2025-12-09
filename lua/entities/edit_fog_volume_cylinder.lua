@@ -21,7 +21,7 @@ function ENT:Initialize()
 	self:SetMaterial( "gmod/edit_fog" )
 	self:SetBodygroup(1, 1)
 	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-	self:EnableCustomCollisions()
+	--self:EnableCustomCollisions()
 	
 	if ( CLIENT ) then
 

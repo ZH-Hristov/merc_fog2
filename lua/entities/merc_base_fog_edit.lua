@@ -5,11 +5,14 @@ ENT.Spawnable = false
 ENT.HelpTextColor = Color( 255, 100, 100 )
 ENT.HelpTextDistance = 1000000
 
+-- This is to allow maniupaltion without interfering with normal collisions, but behaviour is inconsistent for users
+--[[
 local valid_contents = { [100679695] = true, [1174421519] = true }
 function ENT:TestCollision( startpos, delta, isbox, extents, mask )
 	if mask == 4294967295 and input.IsKeyDown( KEY_E ) then properties.OpenEntityMenu( self, {} ) return true end
 	if valid_contents[mask] then return true end
 end
+--]]
 
 function ENT:AddHelpText()
     hook.Add("HUDPaint", self, function()
@@ -18,7 +21,9 @@ function ENT:AddHelpText()
         if not tscr.visible then return end
         if self:GetPos():DistToSqr(LocalPlayer():GetPos()) > self.HelpTextDistance then return end
         draw.SimpleText(self.PrintName or "Uhh whoops?", "TargetID", tscr.x, tscr.y - 40, self.HelpTextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-        draw.SimpleText("Press E on me to edit", "TargetID", tscr.x, tscr.y - 20, self.HelpTextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+        
+        -- Return this line if I fix testcollision above
+        --draw.SimpleText("Press E on me to edit", "TargetID", tscr.x, tscr.y - 20, self.HelpTextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
         draw.RoundedBox( 4, tscr.x - 10, tscr.y - 10, 20, 20, self.HelpTextColor )
     end)
 end
